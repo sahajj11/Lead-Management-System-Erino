@@ -1,7 +1,16 @@
 import express from "express"
+import connectDb from "./config/db.js"
+import dotenv from "dotenv"
+
+dotenv.config()
+
+
 const app=express()
 
-const port=5000
-app.listen(port,(req,res)=>{
+const Port=process.env.PORT
+
+connectDb()
+
+app.listen(Port,(req,res)=>{
     console.log("server started")
 })

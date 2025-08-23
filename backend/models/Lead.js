@@ -75,5 +75,5 @@ const leadSchema=new mongoose.Schema({
 
 },{timestamps:true})
 
-const Lead=new mongoose.Model("Lead",leadSchema)
+const Lead=new mongoose.model("Lead",leadSchema)
 export default Lead

@@ -14,6 +14,7 @@ const leadSchema=new mongoose.Schema({
     email:{
         type:String,
         required:true,
+        unique:true
         
     },
 
@@ -66,7 +67,7 @@ const leadSchema=new mongoose.Schema({
         default:null
     },
 
-    is_qualifies:{
+    is_qualified:{
         type:Boolean,
         default:false
     }

@@ -15,7 +15,10 @@ const Port=process.env.PORT
 
 connectDb()
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5173', // frontend origin
+  credentials: true               // allow cookies/auth headers
+}));
 app.use(cookieParser())
 app.use(express.json())
 

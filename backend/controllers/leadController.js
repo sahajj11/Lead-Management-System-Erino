@@ -3,7 +3,7 @@ import Lead from "../models/Lead.js";
 //CREATE NEW LEAD CONTROLLER
 export const createLead=async(req,res)=>{
     try{
-        const {first_name, last_name, email,phone,company,city,state,source,status,score,lead_value,last_activity_at,is_qualifies}=req.body
+        const {first_name, last_name, email,phone,company,city,state,source,status,score,lead_value,last_activity_at,is_qualified}=req.body
 
         const lead=new Lead({...req.body})
         await lead.save()
@@ -107,12 +107,31 @@ export const getLeads = async (req, res) => {
       }
     }
 
+    // Name search (either full name or part of first/last name)
+if (filters.name) {
+  query.$or = [
+    { first_name: { $regex: filters.name, $options: "i" } },
+    { last_name: { $regex: filters.name, $options: "i" } }
+  ];
+}
+
+// Optional separate filters
+if (filters.first_name) {
+  query.first_name = { $regex: filters.first_name, $options: "i" };
+}
+if (filters.last_name) {
+  query.last_name = { $regex: filters.last_name, $options: "i" };
+}
+
     // Enum fields (status, source)
     if (filters.status) query.status = filters.status;
     if (filters.status_in) query.status = { $in: filters.status_in.split(",") };
 
     if (filters.source) query.source = filters.source;
     if (filters.source_in) query.source = { $in: filters.source_in.split(",") };
+
+    
+
 
     // Number fields (score, lead_value)
     ["score", "lead_value"].forEach((field) => {

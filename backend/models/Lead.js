@@ -14,7 +14,7 @@ const leadSchema=new mongoose.Schema({
     email:{
         type:String,
         required:true,
-        unique:true
+        
     },
 
     phone:{
@@ -41,7 +41,7 @@ const leadSchema=new mongoose.Schema({
         type:String,
         required:true,
         enum: ["website","facebook_ads","google_ads","referral","events","other"],
-        default:other
+        default:"other"
     },
 
     status:{

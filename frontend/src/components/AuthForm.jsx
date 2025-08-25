@@ -3,14 +3,14 @@ import axiosInstance from "../api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
-  const [isLogin, setIsLogin] = useState(false); 
+  const [isLogin, setIsLogin] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    password: ""
+    password: "",
   });
   const [error, setError] = useState("");
-
+  const [success, setSuccess] = useState("");
 
   const navigate = useNavigate();
 
@@ -24,12 +24,19 @@ const AuthForm = () => {
 
     try {
       if (isLogin) {
-        await axiosInstance.post("/auth/login", formData, { withCredentials: true });
-        navigate("/leads");
+        await axiosInstance.post("/auth/login", formData, {
+          withCredentials: true,
+        });
+        setSuccess("Login successful! Redirecting...");
+        setTimeout(() => {
+          navigate("/leads"); // redirect after showing message
+        }, 1500);
       } else {
-        await axiosInstance.post("/auth/register", formData, { withCredentials: true });
+        await axiosInstance.post("/auth/register", formData, {
+          withCredentials: true,
+        });
         alert("Registration successful. Please login now.");
-        setIsLogin(true); 
+        setIsLogin(true);
       }
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
@@ -78,7 +85,7 @@ const AuthForm = () => {
 
           <button
             type="submit"
-            className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow hover:opacity-90 transition"
+            className="w-full cursor-pointer py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow hover:opacity-90 transition"
           >
             {isLogin ? "Login" : "Register"}
           </button>
@@ -93,6 +100,12 @@ const AuthForm = () => {
             {isLogin ? "Register here" : "Login here"}
           </span>
         </p>
+
+        {success && (
+          <p className="mt-3 text-green-500 text-center text-sm font-medium bg-green-50 p-2 rounded">
+            {success}
+          </p>
+        )}
 
         {error && (
           <p className="mt-3 text-red-500 text-center text-sm font-medium bg-red-50 p-2 rounded">

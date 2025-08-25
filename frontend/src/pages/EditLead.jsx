@@ -36,7 +36,7 @@ const EditLead = () => {
       await axiosInstance.put(`/lead/${id}`, lead, {
         withCredentials: true,
       });
-      alert("Lead created successfully!");
+      alert("Lead edited successfully!");
       navigate(`/leads/${id}`);
     } catch (err) {
       console.error("Error updating lead:", err);
@@ -52,7 +52,6 @@ const EditLead = () => {
     <>
       <LeadsPageNavbar />
       <div className="min-h-screen mt-7 bg-gray-50 flex flex-col items-center p-6">
-        
         <div className="w-full max-w-2xl mb-4">
           <button
             className="px-4 cursor-pointer py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition"
@@ -176,7 +175,6 @@ const EditLead = () => {
               placeholder="Lead Value"
             />
 
-           
             <div className="col-span-1 md:col-span-2">
               <button
                 type="submit"

@@ -3,36 +3,35 @@ import axiosInstance from "../api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const LeadsPageNavbar = () => {
+  const [user, setUser] = useState(null);
 
-  const [user,setUser]=useState(null)
+  const navigate = useNavigate();
 
-  const navigate=useNavigate()
-
-  useEffect(()=>{
-    const fetchUser=async()=>{
-      try{
-        const res=await axiosInstance.get("/auth/me",{
-          withCredentials:true,
-        })
-        setUser(res.data)
-        console.log(res.data)
-      }catch(err){
-        console.error(err)
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axiosInstance.get("/auth/me", {
+          withCredentials: true,
+        });
+        setUser(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.error(err);
       }
-    }
-    fetchUser()
-  },[])
+    };
+    fetchUser();
+  }, []);
 
-  const handleLogOut=async()=>{
-    try{
-      await axiosInstance.post("/auth/logout")
-      setUser(null)
-      navigate("/")
-
-    }catch(err){
-      console.error(err)
+  const handleLogOut = async () => {
+    try {
+      await axiosInstance.post("/auth/logout");
+      setUser(null);
+      alert("Logout successful!");
+      navigate("/");
+    } catch (err) {
+      console.error(err);
     }
-  }
+  };
   return (
     <>
       <nav
@@ -41,23 +40,21 @@ const LeadsPageNavbar = () => {
           background: "linear-gradient(135deg, #4f46e5, #6d28d9)",
         }}
       >
-        
         <div className="flex items-center gap-3">
-          
           <p className="text-lg font-semibold tracking-wide">
-            Welcome, <span className="font-bold">{user ? user.email : "Guest"}</span>
+            Welcome,{" "}
+            <span className="font-bold">{user ? user.email : "Guest"}</span>
           </p>
         </div>
 
-       
-        <button onClick={handleLogOut}
+        <button
+          onClick={handleLogOut}
           className="px-5 py-2.5 bg-white text-indigo-700 font-semibold rounded-xl shadow-md 
                      hover:bg-indigo-100 hover:shadow-xl hover:scale-105 transition-all duration-300"
         >
           Logout
         </button>
       </nav>
-      
     </>
   );
 };

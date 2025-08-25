@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../api/AxiosInstance";
 import LeadsPageNavbar from "../components/LeadsPageNavbar";
+import Footer from "../components/Footer";
 
 const LeadDetail = () => {
   const { id } = useParams();
@@ -36,7 +37,7 @@ const LeadDetail = () => {
   return (
     <>
     <LeadsPageNavbar />
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center p-6">
+    <div className="min-h-screen mt-3 bg-gray-50 flex flex-col items-center p-6">
       {/* Back Button */}
       <div className="w-full max-w-3xl mb-4">
         <button
@@ -48,7 +49,7 @@ const LeadDetail = () => {
       </div>
 
       {/* Lead Detail Card */}
-      <div className="w-full max-w-3xl bg-white shadow-md rounded-2xl p-6">
+      <div className="w-full max-w-3xl mt-3 bg-white shadow-md rounded-2xl p-6">
         <h1 className="text-2xl font-bold mb-6 text-indigo-700">
           Lead Details
         </h1>
@@ -102,6 +103,8 @@ const LeadDetail = () => {
         </div>
       </div>
     </div>
+
+    <Footer />
     </>
   );
 };

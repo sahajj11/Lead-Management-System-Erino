@@ -146,6 +146,19 @@ const LeadsTable = () => {
               <option value="other">Other</option>
             </select>
 
+            {/* Limit Selector */}
+<select
+  name="limit"
+  value={filters.limit}
+  onChange={handleFilterChange}
+  className="border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500"
+>
+  <option value={20}>20 / page</option>
+  <option value={50}>50 / page</option>
+  <option value={100}>100 / page</option>
+</select>
+
+
             <button
               onClick={handleResetFilters}
               className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-800"

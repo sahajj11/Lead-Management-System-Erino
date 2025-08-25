@@ -84,3 +84,39 @@ export const fetchCurrentUser=async(req,res)=>{
         res.status(500).json({ message: "Server error", error: err.message })
     }
 }
+
+export const fetchMe=async(req, res) => {
+  try {
+    const token = req.cookies?.token; // cookie-parser must be used
+    if (!token) return res.status(401).json({ message: "Not authenticated" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select("-password");
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json(user);
+  } catch (err) {
+    res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+
+
+export const verifyUser=(req, res) => {
+  try {
+    const token = req.cookies.token; // your cookie name
+    if (!token) return res.json({ success: false });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (decoded) {
+      return res.json({ success: true, user: decoded });
+    } else {
+      return res.json({ success: false });
+    }
+  } catch (err) {
+    return res.json({ success: false });
+  }
+};
+
+

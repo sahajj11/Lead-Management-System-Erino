@@ -16,10 +16,44 @@ function App() {
      <BrowserRouter>
      <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/leads" element={<Leads />} />
-      <Route path="/leads/:id" element={<LeadDetails />} />
+      <Route
+          path="/leads"
+          element={
+            <ProtectedRoute>
+              <Leads />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/leads/:id"
+          element={
+            <ProtectedRoute>
+              <LeadDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/leads:id/edit"
+          element={
+            <ProtectedRoute>
+              <EditLead />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/leads/create"
+          element={
+            <ProtectedRoute>
+              <CreateLead />
+            </ProtectedRoute>
+          }
+        />
+      {/* <Route path="/leads/:id" element={<LeadDetails />} />
       <Route path="/leads/:id/edit" element={<EditLead />} />
-      <Route path="/leads/create" element={<CreateLead />} />
+      <Route path="/leads/create" element={<CreateLead />} /> */}
      </Routes>
      </BrowserRouter>
      

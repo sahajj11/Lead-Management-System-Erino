@@ -1,41 +1,38 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react'
-import axiosInstance from '../api/AxiosInstance'
-import { Navigate } from 'react-router-dom'
-import { Children } from 'react'
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import axiosInstance from "../api/AxiosInstance";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-    const [isLoggedIn, setIsLoggedIn] = useState(null)
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axiosInstance.get("/auth/verify", {
+          withCredentials: true, 
+        });
 
-    useEffect(()=>{
-        const checkLogIn=async()=>{
-        try{
-            await axiosInstance.get("/auth/current-user")
-            isLoggedIn(true)
-
-        }catch(err){
-            setIsLoggedIn(false)
-            console.log(err)
+        if (res.data.success) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
         }
-        }
-        checkLogIn()
-        
-    },[])
+      } catch (error) {
+        setIsAuthenticated(false);
+         alert("Unauthorized (401). Please login first.")
+        console.error(error)
+      }
+    };
 
+    checkAuth();
+  }, []);
 
-    if (isLoggedIn === null){
-        return <div>Loading ...</div>
-    }
+  // While checking, show nothing / loader
+  if (isAuthenticated === null) {
+    return <div className="text-center mt-10">Checking authentication...</div>;
+  }
 
-    if (!isLoggedIn){
-        <Navigate to="/" replace />
-    }
+  return isAuthenticated ? children : <Navigate to="/" replace />;
+};
 
-    return Children
-
-    
-
-}
-
-export default ProtectedRoute
+export default ProtectedRoute;

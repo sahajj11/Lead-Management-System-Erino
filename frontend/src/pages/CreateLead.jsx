@@ -49,10 +49,10 @@ const CreateLead = () => {
       <LeadsPageNavbar />
 
       <div className="min-h-screen bg-gray-50 flex flex-col items-center p-6">
-        {/* Back Button */}
+       
         <div className="w-full max-w-2xl mb-4">
           <button
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition"
+            className="px-4 cursor-pointer py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition"
             onClick={() => navigate("/leads")}
           >
             ← Back to Leads
@@ -69,7 +69,7 @@ const CreateLead = () => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* First Name */}
+           
             <input
               type="text"
               name="first_name"
@@ -79,7 +79,7 @@ const CreateLead = () => {
               className="w-full p-2 border rounded"
               required
             />
-            {/* Last Name */}
+            
             <input
               type="text"
               name="last_name"
@@ -89,7 +89,7 @@ const CreateLead = () => {
               className="w-full p-2 border rounded"
               required
             />
-            {/* Email */}
+           
             <input
               type="email"
               name="email"
@@ -99,7 +99,7 @@ const CreateLead = () => {
               className="w-full p-2 border rounded"
               required
             />
-            {/* Phone */}
+            
             <input
               type="tel"
               name="phone"
@@ -109,7 +109,7 @@ const CreateLead = () => {
               className="w-full p-2 border rounded"
               required
             />
-            {/* Company */}
+            
             <input
               type="text"
               name="company"
@@ -119,7 +119,7 @@ const CreateLead = () => {
               className="w-full p-2 border rounded"
               required
             />
-            {/* City */}
+           
             <input
               type="text"
               name="city"
@@ -129,7 +129,7 @@ const CreateLead = () => {
               className="w-full p-2 border rounded"
               required
             />
-            {/* State */}
+           
             <input
               type="text"
               name="state"
@@ -140,7 +140,7 @@ const CreateLead = () => {
               required
             />
 
-            {/* Source */}
+           
             <select
               name="source"
               value={formData.source}
@@ -156,7 +156,7 @@ const CreateLead = () => {
               <option value="other">Other</option>
             </select>
 
-            {/* Status */}
+           
             <select
               name="status"
               value={formData.status}
@@ -171,7 +171,7 @@ const CreateLead = () => {
               <option value="won">Won</option>
             </select>
 
-            {/* Score */}
+            
             <input
               type="number"
               name="score"
@@ -181,7 +181,7 @@ const CreateLead = () => {
               className="w-full p-2 border rounded"
             />
 
-            {/* Lead Value */}
+            
             <input
               type="number"
               name="lead_value"
@@ -191,7 +191,7 @@ const CreateLead = () => {
               className="w-full p-2 border rounded"
             />
 
-            {/* Last Activity */}
+            
             <input
               type="date"
               name="last_activity_at"
@@ -200,7 +200,7 @@ const CreateLead = () => {
               className="w-full p-2 border rounded"
             />
 
-            {/* Qualified */}
+            
             <label className="flex items-center gap-2 col-span-1 md:col-span-2">
               <input
                 type="checkbox"
@@ -212,10 +212,10 @@ const CreateLead = () => {
             </label>
           </div>
 
-          {/* Submit Button */}
+          
           <button
             type="submit"
-            className="mt-6 w-full py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow hover:opacity-90 transition"
+            className="mt-6 cursor-pointer w-full py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow hover:opacity-90 transition"
           >
             Create Lead
           </button>

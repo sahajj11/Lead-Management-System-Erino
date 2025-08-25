@@ -71,20 +71,8 @@ export const logOut=async(req,res)=>{
     res.status(200).json({message:"Logout  successfull."})
 }
 
-//FETCH CURRENT USER CONTROLLER
-export const fetchCurrentUser=async(req,res)=>{
-    try{
-        const user=await User.findById(req.user.id).select("-password")
-        if (!user){
-            return res.status(404).json({ message: "User not found" })
-        }
 
-        res.json(user)
-    }catch(err){
-        res.status(500).json({ message: "Server error", error: err.message })
-    }
-}
-
+//FETCH CURRENT USER
 export const fetchMe=async(req, res) => {
   try {
     const token = req.cookies?.token; // cookie-parser must be used
@@ -101,11 +89,10 @@ export const fetchMe=async(req, res) => {
   }
 };
 
-
-
+//FOR VERIFICATION PURPOSE
 export const verifyUser=(req, res) => {
   try {
-    const token = req.cookies.token; // your cookie name
+    const token = req.cookies.token; 
     if (!token) return res.json({ success: false });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

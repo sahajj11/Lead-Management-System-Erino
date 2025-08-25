@@ -1,21 +1,22 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-
 import LandingPage from "./pages/LandingPage"
 import Leads from "./pages/Leads"
 import ProtectedRoute from "./components/ProtectedRoute"
 import LeadDetails from "./pages/LeadDetails"
 import EditLead from "./pages/EditLead"
 import CreateLead from "./pages/CreateLead"
-
+import NotFoundPage from "./pages/NotFoundPage"
 
 function App() {
   
-
   return (
     <>
      <BrowserRouter>
+     
      <Routes>
+
       <Route path="/" element={<LandingPage />} />
+
       <Route
           path="/leads"
           element={
@@ -35,7 +36,7 @@ function App() {
         />
 
         <Route
-          path="/leads:id/edit"
+          path="/leads/:id/edit"
           element={
             <ProtectedRoute>
               <EditLead />
@@ -51,10 +52,11 @@ function App() {
             </ProtectedRoute>
           }
         />
-      {/* <Route path="/leads/:id" element={<LeadDetails />} />
-      <Route path="/leads/:id/edit" element={<EditLead />} />
-      <Route path="/leads/create" element={<CreateLead />} /> */}
+
+        <Route path="*" element={<NotFoundPage />} />
+     
      </Routes>
+
      </BrowserRouter>
      
     </>

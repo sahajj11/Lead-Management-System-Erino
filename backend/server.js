@@ -8,7 +8,6 @@ import leadRouter from "./routes/leadRoutes.js"
 
 dotenv.config()
 
-
 const app=express()
 
 const Port=process.env.PORT
@@ -16,8 +15,8 @@ const Port=process.env.PORT
 connectDb()
 
 app.use(cors({
-  origin: 'http://localhost:5173', // frontend origin
-  credentials: true               // allow cookies/auth headers
+  origin: 'http://localhost:5173', 
+  credentials: true               
 }));
 app.use(cookieParser())
 app.use(express.json())

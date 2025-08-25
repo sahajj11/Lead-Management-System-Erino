@@ -3,13 +3,14 @@ import axiosInstance from "../api/AxiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
-  const [isLogin, setIsLogin] = useState(false); // default: Register first
+  const [isLogin, setIsLogin] = useState(false); 
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: ""
   });
   const [error, setError] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ const AuthForm = () => {
       } else {
         await axiosInstance.post("/auth/register", formData, { withCredentials: true });
         alert("Registration successful. Please login now.");
-        setIsLogin(true); // switch to login
+        setIsLogin(true); 
       }
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");

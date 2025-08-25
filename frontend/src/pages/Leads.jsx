@@ -1,4 +1,3 @@
-// src/pages/LeadsTable.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/AxiosInstance";
@@ -10,6 +9,7 @@ const LeadsTable = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalLeads, setTotalLeads] = useState(0);
   const [filters, setFilters] = useState({
     email: "",
     name: "",
@@ -32,6 +32,7 @@ const LeadsTable = () => {
       setLeads(response.data.data);
       setPage(response.data.page);
       setTotalPages(response.data.totalPages);
+      setTotalLeads(response.data.total);
     } catch (err) {
       console.error(err);
     } finally {
@@ -77,15 +78,13 @@ const LeadsTable = () => {
     }
   };
 
-  
-
   return (
     <>
       <LeadsPageNavbar />
       <div className="p-6">
-        {/* Filter + Create Row */}
-        <div className="bg-white shadow-md rounded-lg p-4 mb-6">
-          <div className="flex flex-wrap gap-3 items-center">
+       
+        <div className="bg-white  shadow-md rounded-lg p-4 mb-6">
+          <div className="flex  flex-wrap gap-3 items-center">
             <input
               type="text"
               name="email"
@@ -122,9 +121,9 @@ const LeadsTable = () => {
               name="status"
               value={filters.status}
               onChange={handleFilterChange}
-              className="border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="border cursor-pointer border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500"
             >
-              <option value="">All Status</option>
+              <option value="">Status</option>
               <option value="new">New</option>
               <option value="contacted">Contacted</option>
               <option value="qualified">Qualified</option>
@@ -135,9 +134,9 @@ const LeadsTable = () => {
               name="source"
               value={filters.source}
               onChange={handleFilterChange}
-              className="border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="border cursor-pointer border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500"
             >
-              <option value="">All Sources</option>
+              <option value="">Sources</option>
               <option value="website">Website</option>
               <option value="facebook_ads">Facebook Ads</option>
               <option value="google_ads">Google Ads</option>
@@ -146,31 +145,35 @@ const LeadsTable = () => {
               <option value="other">Other</option>
             </select>
 
-            {/* Limit Selector */}
-<select
-  name="limit"
-  value={filters.limit}
-  onChange={handleFilterChange}
-  className="border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500"
->
-  <option value={20}>20 / page</option>
-  <option value={50}>50 / page</option>
-  <option value={100}>100 / page</option>
-</select>
-
-
-            <button
-              onClick={handleResetFilters}
-              className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-800"
+           
+            <select
+              name="limit"
+              value={filters.limit}
+              onChange={handleFilterChange}
+              className="border cursor-pointer border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500"
             >
-              Reset
-            </button>
+              <option value={20}>20 / page</option>
+              <option value={50}>50 / page</option>
+              <option value={100}>100 / page</option>
+            </select>
 
-            {/* Spacer + Create Button */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleResetFilters}
+                className="px-4 py-2 cursor-pointer bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-800"
+              >
+                Reset
+              </button>
+              <span className="text-gray-600 text-sm">
+                Total Leads: <strong>{totalLeads}</strong>
+              </span>
+            </div>
+
+           
             <div className="ml-auto">
               <button
                 onClick={() => navigate("/leads/create")}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg shadow"
+                className="bg-indigo-600 cursor-pointer hover:bg-indigo-700 text-white px-5 py-2 rounded-lg shadow"
               >
                 + Create Lead
               </button>
@@ -229,19 +232,19 @@ const LeadsTable = () => {
                   <td className="px-4 py-3 border-b flex gap-2">
                     <button
                       onClick={() => navigate(`/leads/${lead._id}`)}
-                      className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded-md text-xs"
+                      className="px-3 cursor-pointer py-1 bg-green-500 hover:bg-green-600 text-white rounded-md text-xs"
                     >
                       View
                     </button>
                     <button
                       onClick={() => navigate(`/leads/${lead._id}/edit`)}
-                      className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md text-xs"
+                      className="px-3 cursor-pointer py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md text-xs"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(lead._id)}
-                      className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-xs"
+                      className="px-3 cursor-pointer py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-xs"
                     >
                       Delete
                     </button>
@@ -265,7 +268,7 @@ const LeadsTable = () => {
         {/* Pagination */}
         <div className="flex justify-between items-center mt-6">
           <button
-            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md text-sm disabled:opacity-50"
+            className="px-4 cursor-pointer py-2 bg-gray-200 hover:bg-gray-300 rounded-md text-sm disabled:opacity-50"
             onClick={() => fetchLeads(page - 1, filters)}
             disabled={page === 1 || loading}
           >
@@ -275,7 +278,7 @@ const LeadsTable = () => {
             Page <strong>{page}</strong> of {totalPages}
           </span>
           <button
-            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md text-sm disabled:opacity-50"
+            className="px-4 cursor-pointer py-2 bg-gray-200 hover:bg-gray-300 rounded-md text-sm disabled:opacity-50"
             onClick={() => fetchLeads(page + 1, filters)}
             disabled={page === totalPages || loading}
           >

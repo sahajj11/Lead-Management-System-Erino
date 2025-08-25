@@ -41,7 +41,7 @@ const LeadsPageNavbar = () => {
           background: "linear-gradient(135deg, #4f46e5, #6d28d9)",
         }}
       >
-        {/* Left - Brand / Greeting */}
+        
         <div className="flex items-center gap-3">
           
           <p className="text-lg font-semibold tracking-wide">
@@ -50,8 +50,6 @@ const LeadsPageNavbar = () => {
         </div>
 
        
-
-        {/* Right - Logout Button */}
         <button onClick={handleLogOut}
           className="px-5 py-2.5 bg-white text-indigo-700 font-semibold rounded-xl shadow-md 
                      hover:bg-indigo-100 hover:shadow-xl hover:scale-105 transition-all duration-300"

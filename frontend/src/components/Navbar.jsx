@@ -1,6 +1,6 @@
 import React from "react";
 
-const LeadsPageNavbar = () => {
+const Navbar = () => {
   return (
     <>
       <nav
@@ -9,7 +9,7 @@ const LeadsPageNavbar = () => {
           background: "linear-gradient(135deg, #4f46e5, #6d28d9)",
         }}
       >
-        {/* Left - Brand / Greeting */}
+        
         <div className="flex items-center gap-3">
           
           <p className="text-lg font-semibold tracking-wide">
@@ -23,4 +23,4 @@ const LeadsPageNavbar = () => {
   );
 };
 
-export default LeadsPageNavbar;
+export default Navbar;

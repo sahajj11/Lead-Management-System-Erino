@@ -36,23 +36,26 @@ const EditLead = () => {
       await axiosInstance.put(`/lead/${id}`, lead, {
         withCredentials: true,
       });
+      alert("Lead created successfully!");
       navigate(`/leads/${id}`);
     } catch (err) {
       console.error("Error updating lead:", err);
     }
   };
 
-  if (loading) return <p className="text-center mt-6 text-gray-600">Loading...</p>;
-  if (!lead) return <p className="text-center mt-6 text-red-500">Lead not found</p>;
+  if (loading)
+    return <p className="text-center mt-6 text-gray-600">Loading...</p>;
+  if (!lead)
+    return <p className="text-center mt-6 text-red-500">Lead not found</p>;
 
   return (
     <>
       <LeadsPageNavbar />
       <div className="min-h-screen mt-7 bg-gray-50 flex flex-col items-center p-6">
-        {/* Back Button */}
+        
         <div className="w-full max-w-2xl mb-4">
           <button
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition"
+            className="px-4 cursor-pointer py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition"
             onClick={() => navigate("/leads")}
           >
             ← Back to Leads
@@ -65,7 +68,10 @@ const EditLead = () => {
             Edit Lead
           </h2>
 
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
             <input
               type="text"
               name="first_name"
@@ -170,11 +176,11 @@ const EditLead = () => {
               placeholder="Lead Value"
             />
 
-            {/* Full width Submit Button */}
+           
             <div className="col-span-1 md:col-span-2">
               <button
                 type="submit"
-                className="w-full py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow hover:opacity-90 transition"
+                className="w-full cursor-pointer py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow hover:opacity-90 transition"
               >
                 Update Lead
               </button>

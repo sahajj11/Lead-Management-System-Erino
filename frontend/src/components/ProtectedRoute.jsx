@@ -18,8 +18,9 @@ const ProtectedRoute = ({ children }) => {
           setIsAuthenticated(false);
         }
       } catch (error) {
+        
         setIsAuthenticated(false);
-         alert("Unauthorized (401). Please login first.")
+        
         console.error(error)
       }
     };
@@ -27,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
     checkAuth();
   }, []);
 
-  // While checking, show nothing / loader
+  
   if (isAuthenticated === null) {
     return <div className="text-center mt-10">Checking authentication...</div>;
   }

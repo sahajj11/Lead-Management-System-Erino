@@ -1,6 +1,6 @@
 import Lead from "../models/Lead.js";
 
-//CREATE NEW LEAD CONTROLLER
+//CREATE A NEW LEAD CONTROLLER
 export const createLead=async(req,res)=>{
     try{
         const {first_name, last_name, email,phone,company,city,state,source,status,score,lead_value,last_activity_at,is_qualified}=req.body
@@ -12,16 +12,6 @@ export const createLead=async(req,res)=>{
         res.status(500).json({ message: 'Server error',error: err.message })
     }
 
-}
-
-//FETCH ALL LEADS CONTOLLER
-export const fetchLeads=async(req,res)=>{
-    try{
-        const leads=await Lead.find()
-        res.status(200).json(leads)
-    }catch(err){
-        res.status(500).json({ message: 'Server error',error: err.message })
-    }
 }
 
 //LEAD BY ID
@@ -66,9 +56,6 @@ export const deleteLead=async(req,res)=>{
     }
 }
 
-
-
-
 // GET /leads with pagination + filters
 export const getLeads = async (req, res) => {
   try {
@@ -83,31 +70,18 @@ export const getLeads = async (req, res) => {
 
     const query = {};
 
-    // --- FILTERING ---
     // String fields (email, company, city)
     if (filters.email) {
-      if (filters.email_contains) {
-        query.email = { $regex: filters.email_contains, $options: "i" };
-      } else {
-        query.email = filters.email;
-      }
+      query.email = { $regex: filters.email, $options: "i" }
     }
     if (filters.company) {
-      if (filters.company_contains) {
-        query.company = { $regex: filters.company_contains, $options: "i" };
-      } else {
-        query.company = filters.company;
-      }
+     query.company= { $regex: filters.company, $options: "i" }
     }
     if (filters.city) {
-      if (filters.city_contains) {
-        query.city = { $regex: filters.city_contains, $options: "i" };
-      } else {
-        query.city = filters.city;
-      }
+      query.city = { $regex: filters.city, $options: "i" }
     }
 
-    // Name search (either full name or part of first/last name)
+    // Name search 
 if (filters.name) {
   query.$or = [
     { first_name: { $regex: filters.name, $options: "i" } },
@@ -129,9 +103,6 @@ if (filters.last_name) {
 
     if (filters.source) query.source = filters.source;
     if (filters.source_in) query.source = { $in: filters.source_in.split(",") };
-
-    
-
 
     // Number fields (score, lead_value)
     ["score", "lead_value"].forEach((field) => {
@@ -166,7 +137,7 @@ if (filters.last_name) {
       query.is_qualified = filters.is_qualified === "true";
     }
 
-    // --- PAGINATION ---
+    //  PAGINATION 
     const total = await Lead.countDocuments(query);
     const totalPages = Math.ceil(total / limit);
 
@@ -187,8 +158,7 @@ if (filters.last_name) {
   }
 };
 
-
-//FOR CREATING MULTIPE LEADS
+//FOR CREATING MULTIPLE LEADS AT ONCE (Using insertMany)
 export const createMultipleLeads = async (req, res) => {
     try {
         const leads = await Lead.insertMany(req.body);

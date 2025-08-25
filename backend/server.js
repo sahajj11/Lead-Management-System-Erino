@@ -24,6 +24,10 @@ app.use(express.json())
 app.use("/auth",authRouter)
 app.use("/lead",leadRouter)
 
+app.get("/",(req,res)=>{
+  res.status(200).json({message:"backend is running"})
+})
+
 app.listen(Port,(req,res)=>{
     console.log("server started")
 })

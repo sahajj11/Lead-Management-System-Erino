@@ -30,7 +30,7 @@ const AuthForm = () => {
         setSuccess("Login successful! Redirecting...");
         setTimeout(() => {
           navigate("/leads"); // redirect after showing message
-        }, 1500);
+        }, 1000);
       } else {
         await axiosInstance.post("/auth/register", formData, {
           withCredentials: true,

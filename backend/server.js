@@ -15,7 +15,7 @@ const Port=process.env.PORT
 connectDb()
 
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: 'https://lead-management-system-erino.vercel.app/', 
   credentials: true               
 }));
 app.use(cookieParser())
